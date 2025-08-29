@@ -1,7 +1,7 @@
 pkgname=(util-linux util-linux-libs)
 pkgbase=util-linux
 pkgver=2.41.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Miscellaneous system utilities for Linux"
 arch=('x86_64')
 url="https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/"
@@ -24,6 +24,7 @@ makedepends=(
     'ncurses'
     'python'
     'readline'
+    'systemd'
     'xz'
     'zlib'
     'zstd'
@@ -68,6 +69,7 @@ package_util-linux() {
         'libxcrypt'
         'ncurses'
         'readline'
+        'systemd-libs'
         "util-linux-libs=${pkgver}"
         'xz'
         'zlib'
