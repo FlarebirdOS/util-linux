@@ -1,7 +1,7 @@
 pkgname=(util-linux util-linux-libs)
 pkgbase=util-linux
 pkgver=2.41.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Miscellaneous system utilities for Linux"
 arch=('x86_64')
 url="https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/"
@@ -17,19 +17,22 @@ license=('BSD-2-Clause'
 groups=('base')
 makedepends=(
     'bzip2'
+    'coreutils'
     'file'
     'gcc-libs'
     'glibc'
+    'libcap'
     'libxcrypt'
     'ncurses'
-    'python'
     'readline'
+    'shadow'
+    'python'
     'systemd'
     'xz'
     'zlib'
     'zstd'
 )
-options=('!lto')
+options=('strip')
 source=(https://www.kernel.org/pub/linux/utils/util-linux/v${pkgver%.*}/${pkgbase}-${pkgver}.tar.xz)
 sha256sums=(be9ad9a276f4305ab7dd2f5225c8be1ff54352f565ff4dede9628c1aaa7dec57)
 
@@ -50,6 +53,7 @@ build() {
         --disable-liblastlog2
         --disable-static
         --without-python
+        --without-selinux
         ADJTIME_PATH=/var/lib/hwclock/adjtime
         --docdir=/usr/share/doc/${pkgname}-${pkgver}
         ${configure_options}
@@ -63,12 +67,15 @@ build() {
 package_util-linux() {
     depends=(
         'bzip2'
+        'coreutils'
         'file'
         'gcc-libs'
         'glibc'
+        'libcap'
         'libxcrypt'
         'ncurses'
         'readline'
+        'shadow'
         'systemd-libs'
         "util-linux-libs=${pkgver}"
         'xz'
